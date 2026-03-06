@@ -580,3 +580,37 @@ button {
     grid-template-columns: 1fr;
   }
 }
+/* INTRO SCREEN */
+
+#intro{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.intro-logo{
+width:250px;
+animation:logoZoom 2s forwards;
+}
+
+@keyframes logoZoom{
+0%{
+transform:scale(1);
+opacity:1;
+}
+70%{
+transform:scale(1.4);
+opacity:1;
+}
+100%{
+transform:scale(3);
+opacity:0;
+}
+}
