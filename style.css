@@ -579,4 +579,23 @@ button {
   .habit-grid {
     grid-template-columns: 1fr;
   }
+.logo{
+text-align:center;
+margin-top:20px;
+}
+
+.app-logo{
+width:120px;
+border-radius:10px;
+display:block;
+margin:auto;
+}
+
+.logo h2{
+margin:5px;
+}
+
+.logo p{
+font-size:13px;
+color:gray;
 }
