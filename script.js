@@ -1,4 +1,12 @@
-const quotes = [
+window.addEventListener("load",function(){
+
+setTimeout(function(){
+
+document.getElementById("intro").style.display="none";
+
+},2000);
+
+});const quotes = [
   "Discipline is stronger than motivation.",
   "Small progress every day becomes big success.",
   "Focus on the chapter, not the pressure.",
@@ -941,4 +949,5 @@ function escapeForJs(text) {
   if (session) {
     openApp();
   }
+
 })();
