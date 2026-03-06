@@ -1117,3 +1117,36 @@ document.addEventListener("DOMContentLoaded", function () {
   updateDashboard();
 });
 
+function showDashboard(){
+document.getElementById("dashboardUI").classList.remove("hidden");
+}
+
+function showSection(name){
+console.log("Open section:",name);
+}
+
+function saveTarget(){
+
+const val=document.getElementById("targetInput").value;
+
+localStorage.setItem("dailyTarget",val);
+
+document.getElementById("dailyTarget").innerText=val+" hrs";
+
+alert("Target saved");
+
+}
+
+function loadTarget(){
+
+const saved=localStorage.getItem("dailyTarget");
+
+if(saved){
+
+document.getElementById("dailyTarget").innerText=saved+" hrs";
+
+}
+
+}
+
+window.addEventListener("load",loadTarget);
