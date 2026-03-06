@@ -948,6 +948,86 @@ function escapeForJs(text) {
   const session = getCurrentSession();
   if (session) {
     openApp();
+  }const dailyTargetInput = document.getElementById("dailyTarget");
+const examNameInput = document.getElementById("examName");
+const examDateInput = document.getElementById("examDate");
+const saveSettingsBtn = document.getElementById("saveSettingsBtn");
+
+const upcomingExamText = document.getElementById("upcomingExamText");
+const progressText = document.getElementById("progressText");
+const completedTasksText = document.getElementById("completedTasksText");
+
+function formatDate(dateString) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  if (isNaN(date)) return dateString;
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
+function updateDashboard() {
+  const savedTarget = localStorage.getItem("dailyTarget") || "0";
+  const savedExamName = localStorage.getItem("examName") || "Not set";
+  const savedExamDate = localStorage.getItem("examDate") || "";
+  const completedTasks = localStorage.getItem("completedTasks") || "0";
+
+  // input boxes me purani value dikhane ke liye
+  if (dailyTargetInput) dailyTargetInput.value = savedTarget !== "0" ? savedTarget : "";
+  if (examNameInput) examNameInput.value = savedExamName !== "Not set" ? savedExamName : "";
+  if (examDateInput) examDateInput.value = savedExamDate;
+
+  // Upcoming Exam card update
+  if (upcomingExamText) {
+    if (savedExamName !== "Not set" && savedExamDate) {
+      upcomingExamText.textContent = `${savedExamName} - ${formatDate(savedExamDate)}`;
+    } else if (savedExamName !== "Not set") {
+      upcomingExamText.textContent = savedExamName;
+    } else {
+      upcomingExamText.textContent = "Not set";
+    }
   }
 
+  // Completed Tasks card update
+  if (completedTasksText) {
+    completedTasksText.textContent = completedTasks;
+  }
+
+  // Progress card update
+  let progress = 0;
+  const target = Number(savedTarget);
+  const done = Number(completedTasks);
+
+  if (target > 0) {
+    progress = Math.min(Math.round((done / target) * 100), 100);
+  }
+
+  if (progressText) {
+    progressText.textContent = `${progress}%`;
+  }
+}
+
+if (saveSettingsBtn) {
+  saveSettingsBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const dailyTargetValue = dailyTargetInput ? dailyTargetInput.value.trim() : "";
+    const examNameValue = examNameInput ? examNameInput.value.trim() : "";
+    const examDateValue = examDateInput ? examDateInput.value : "";
+
+    localStorage.setItem("dailyTarget", dailyTargetValue || "0");
+    localStorage.setItem("examName", examNameValue || "Not set");
+    localStorage.setItem("examDate", examDateValue || "");
+
+    updateDashboard();
+    alert("Settings saved successfully");
+  });
+}
+
+window.addEventListener("load", updateDashboard);
+
 })();
+
